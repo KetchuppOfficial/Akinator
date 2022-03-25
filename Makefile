@@ -1,0 +1,28 @@
+CC = gcc
+CFLAGS = -c -Wall -Werror -Wextra
+
+TREE_FILE = Tree.txt
+DOT_FILE  = Tree.dot
+
+all: Akinator
+
+Akinator: main.o Akinator.o Stack.o
+	$(CC) Objects/main.o Objects/Akinator.o Objects/Stack.o ../My_Lib/My_Lib.a -o Akinator.out
+
+main.o: main.c
+	$(CC) $(CFLAGS) main.c -o Objects/main.o
+
+Akinator.o: Akinator.c
+	$(CC) $(CFLAGS) Akinator.c -o Objects/Akinator.o
+
+Stack.o: Stack/Stack.c
+	$(CC) $(CFLAGS) Stack/Stack.c -o Objects/Stack.o
+
+run:
+	./Akinator.out $(TREE_FILE) $(DOT_FILE)
+
+clean:
+	rm Objects/main.o Objects/Akinator.o Objects/Stack.o
+	rm Tree.dot
+	rm log_file.log
+	rm ./Akinator.out

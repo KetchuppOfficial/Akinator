@@ -1,0 +1,149 @@
+{
+A teacher in MIPT
+	{
+	Works in department of Math
+		{
+		Gives lectures
+			{
+			Likes to smoke
+				{ Tereshin }
+				{
+				Likes FOPF
+					{ Karasev }
+					{ Petrovich }
+				}
+			}
+			{
+			Has bad handwriting
+				{ Barabanschikov }
+				{
+				Cheliki - pidorasi
+					{ Skubachevski }
+					{
+					Chills
+						{ Orlov }
+						{ Ogarkov }
+					}
+				}
+			}
+		}
+		{
+		Works in department of Physics
+			{
+			Looks like a mouse from Cat Leopold
+				{ Popov }
+				{
+				Conducts laboratory works
+					{
+					Completely fucks you up
+						{ Alyabyeva }
+						{ Sheronov }
+					}
+					{
+					Wears red shirt
+						{ Gavrikov }
+						{
+						Hates vectors
+							{ Ovchos }
+							{
+							Uses shampoo Jumaisinba
+								{ Koldunov }
+								{
+								Over 70 years old
+									{ Bulygin }
+									{ Holin }
+								}
+							}
+						}
+					}
+				}
+			}
+			{
+			Works in department of Computer Science
+				{
+				Sleeps enough
+					{
+					Gives lectures
+						{ Babichev }
+						{
+						Fucks contest up
+							{ PodlEss }
+							{ Hohlov }
+						}
+					}
+					{
+					Bald
+						{ Vladimirov }
+						{
+						Future Ded
+							{ Sanya Dolgov }
+							{ Ded }
+						}
+					}
+				}
+				{ Chernikova }
+			}
+		}
+	}
+	{
+	Former teacher in MIPT
+		{
+		Haircut like a pot
+			{ Penkin }
+			{ Trushin }
+		}
+		{
+		President of Russia
+			{ Putin }
+			{
+			Character of a sitcom
+				{
+				From Friends
+					{
+					Girl
+						{
+						Plays the guitar
+							{ Phoebe Buffay }
+							{
+							Obsessed with cleaning everything
+								{ Monica Geller }
+								{ Rachel Green }
+							}
+						}
+						{
+						Married to Monica Geller
+							{ Chandler Bing }
+							{
+							How you doin'
+								{ Joey Tribbiani }
+								{ Ross Geller }
+							}
+						}
+					}
+					{
+					Tall
+						{ Sheldon Cooper }
+						{
+						Was in space
+							{ Howard Wolowitz }
+							{ Leonard Hofstadter }
+						}
+					}
+				}
+				{
+				The best programist ever
+					{
+					Lives in 213th room
+						{ Sanya Romanov }
+						{ Indian guy from YouTube }
+					}
+					{
+					Fell from the Moon
+						{ Luntik }
+						{ Sadovnichiy }
+					}
+				}
+			}
+		}
+	}
+}
