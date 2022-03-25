@@ -157,6 +157,7 @@ void Delete_Extra_Spaces (char *line, const int cur_pos)
 }
 
 #define Brace_Check                         \
+do                                          \
 {                                           \
     if (old_l_counter < l_counter)          \
     {                                       \
@@ -170,7 +171,9 @@ void Delete_Extra_Spaces (char *line, const int cur_pos)
         if (letters != 0)                   \
             return ERROR;                   \
     }                                       \
-}
+}                                           \
+while (0)
+
 int Tree_Verificator (const char *const buffer, const long n_symbs)
 {
     MY_ASSERT (buffer,      "const char *const buffer", NULL_PTR, ERROR);
@@ -242,10 +245,12 @@ int Print_Tree_In_File (struct Node *node_ptr, const char *file_name)
 }
 
 #define Print_Shift                     \
+do                                      \
 {                                       \
     for (int i = 0; i < level; i++)     \
             fprintf (tree_file, "\t");  \
-}
+}                                       \
+while (0)
 
 int Print_Node (struct Node *node_ptr, FILE *tree_file, int level)
 {
@@ -409,6 +414,7 @@ int Get_Text_Answer (char *buffer)
 }
 
 #define Initialize_Node(son_ptr)                                    \
+do                                                                  \
 {                                                                   \
     son_ptr = (struct Node *)calloc (1, sizeof (struct Node));      \
                                                                     \
@@ -417,7 +423,8 @@ int Get_Text_Answer (char *buffer)
     son_ptr->left_son = NULL;                                       \
     son_ptr->right_son = NULL;                                      \
     son_ptr->parent = node_ptr;                                     \
-}
+}                                                                   \
+while (0)
 int Add_Leaf (struct Node *node_ptr, enum Modes mode, const value_t value, enum Node_Types node_type)
 {
     MY_ASSERT (node_ptr, "struct Node *node_ptr", NULL_PTR, ERROR);
@@ -538,6 +545,7 @@ int Search_For_Name (struct Node *node_ptr, const char *name, struct Stack *stac
 };
 
 #define Universal_Switch(condition, if_yes, if_no)  \
+do                                                  \
 {                                                   \
     switch (condition)                              \
     {                                               \
@@ -548,7 +556,9 @@ int Search_For_Name (struct Node *node_ptr, const char *name, struct Stack *stac
             if_no;                                  \
             break;                                  \
     }                                               \
-}
+}                                                   \
+while (0)
+
 int Print_Definition (struct Stack *stack_ptr, const char *name)
 {
     MY_ASSERT (stack_ptr, "struct Stack *stack_ptr", NULL_PTR, ERROR);
@@ -709,14 +719,17 @@ int Node_Dump (struct Node *node_ptr, FILE *graph_file)
     return NO_ERRORS;
 }
 
-#define Print_Arrow(side)                                                              \
-{                                                                                      \
-    if (node_ptr->side##_son)                                                          \
-    {                                                                                  \
-        fprintf (graph_file, "node%p -> node%p;\n", node_ptr, node_ptr->side##_son);   \
-        Arrows_Dump (node_ptr->side##_son, graph_file);                                \
-    }                                                                                  \
-}
+#define Print_Arrow(side)                                                               \
+do                                                                                      \
+{                                                                                       \
+    if (node_ptr->side##_son)                                                           \
+    {                                                                                   \
+        fprintf (graph_file, "node%p -> node%p;\n", node_ptr, node_ptr->side##_son);    \
+        Arrows_Dump (node_ptr->side##_son, graph_file);                                 \
+    }                                                                                   \
+}                                                                                       \
+while (0)
+
 int Arrows_Dump (struct Node *node_ptr, FILE *graph_file)
 {
     MY_ASSERT (node_ptr,   "struct Node *node_ptr", NULL_PTR, ERROR);
