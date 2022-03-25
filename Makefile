@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -c -Wall -Werror -Wextra
 
 TREE_FILE = Tree.txt
-DOT_FILE  = Tree.dot
+DOT_FILE  = Graphic_Dump/Tree.dot
 
 all: Akinator
 
@@ -23,6 +23,5 @@ run:
 
 clean:
 	rm Objects/main.o Objects/Akinator.o Objects/Stack.o
-	rm Tree.dot
 	rm log_file.log
 	rm ./Akinator.out

@@ -1,0 +1,304 @@
+digraph List
+{
+	rankdir = TB;
+	node [style = rounded];
+
+	node0x7fffd52c57b0	[shape = box, style = filled, fillcolor = yellow, label = "A teacher in MIPT?"];
+
+	node0x7fffcccc2ed0	[shape = box, style = filled, fillcolor = yellow, label = "Works in department of Math?"];
+
+	node0x7fffcccc2f30	[shape = box, style = filled, fillcolor = yellow, label = "Gives lectures?"];
+
+	node0x7fffcccc2f90	[shape = box, style = filled, fillcolor = yellow, label = "Likes to smoke?"];
+
+	node0x7fffcccc2ff0	[style = filled, fillcolor = green, label = "Tereshin"];
+
+	node0x7fffcccc3050	[shape = box, style = filled, fillcolor = yellow, label = "Likes FOPF?"];
+
+	node0x7fffcccc30b0	[style = filled, fillcolor = green, label = "Karasev"];
+
+	node0x7fffcccc3110	[style = filled, fillcolor = green, label = "Petrovich"];
+
+	node0x7fffcccc3170	[shape = box, style = filled, fillcolor = yellow, label = "Has bad handwriting?"];
+
+	node0x7fffcccc31d0	[style = filled, fillcolor = green, label = "Barabanschikov"];
+
+	node0x7fffcccc3230	[shape = box, style = filled, fillcolor = yellow, label = "Cheliki - pidorasi?"];
+
+	node0x7fffcccc3290	[style = filled, fillcolor = green, label = "Skubachevski"];
+
+	node0x7fffcccc32f0	[shape = box, style = filled, fillcolor = yellow, label = "Chills?"];
+
+	node0x7fffcccc3350	[style = filled, fillcolor = green, label = "Orlov"];
+
+	node0x7fffcccc33b0	[style = filled, fillcolor = green, label = "Ogarkov"];
+
+	node0x7fffcccc3410	[shape = box, style = filled, fillcolor = yellow, label = "Works in department of Physics?"];
+
+	node0x7fffcccc3470	[shape = box, style = filled, fillcolor = yellow, label = "Looks like a mouse from Cat Leopold?"];
+
+	node0x7fffcccc34d0	[style = filled, fillcolor = green, label = "Popov"];
+
+	node0x7fffcccc3530	[shape = box, style = filled, fillcolor = yellow, label = "Conducts laboratory works?"];
+
+	node0x7fffcccc3590	[shape = box, style = filled, fillcolor = yellow, label = "Completely fucks you up?"];
+
+	node0x7fffcccc35f0	[style = filled, fillcolor = green, label = "Alyabyeva"];
+
+	node0x7fffcccc3650	[style = filled, fillcolor = green, label = "Sheronov"];
+
+	node0x7fffcccc36b0	[shape = box, style = filled, fillcolor = yellow, label = "Wears red shirt?"];
+
+	node0x7fffcccc3710	[style = filled, fillcolor = green, label = "Gavrikov"];
+
+	node0x7fffcccc3770	[shape = box, style = filled, fillcolor = yellow, label = "Hates vectors?"];
+
+	node0x7fffcccc37d0	[style = filled, fillcolor = green, label = "Ovchos"];
+
+	node0x7fffcccc3830	[shape = box, style = filled, fillcolor = yellow, label = "Uses shampoo Jumaisinba?"];
+
+	node0x7fffcccc3890	[style = filled, fillcolor = green, label = "Koldunov"];
+
+	node0x7fffcccc38f0	[shape = box, style = filled, fillcolor = yellow, label = "Over 70 years old?"];
+
+	node0x7fffcccc3950	[style = filled, fillcolor = green, label = "Bulygin"];
+
+	node0x7fffcccc39b0	[style = filled, fillcolor = green, label = "Holin"];
+
+	node0x7fffcccc3a10	[shape = box, style = filled, fillcolor = yellow, label = "Works in department of Computer Science?"];
+
+	node0x7fffcccc3a70	[shape = box, style = filled, fillcolor = yellow, label = "Sleeps enough?"];
+
+	node0x7fffcccc3ad0	[shape = box, style = filled, fillcolor = yellow, label = "Gives lectures?"];
+
+	node0x7fffcccc3b30	[style = filled, fillcolor = green, label = "Babichev"];
+
+	node0x7fffcccc3b90	[shape = box, style = filled, fillcolor = yellow, label = "Fucks contest up?"];
+
+	node0x7fffcccc3bf0	[style = filled, fillcolor = green, label = "PodlEss"];
+
+	node0x7fffcccc3c50	[style = filled, fillcolor = green, label = "Hohlov"];
+
+	node0x7fffcccc3cb0	[shape = box, style = filled, fillcolor = yellow, label = "Bald?"];
+
+	node0x7fffcccc3d10	[style = filled, fillcolor = green, label = "Vladimirov"];
+
+	node0x7fffcccc3d70	[shape = box, style = filled, fillcolor = yellow, label = "Future Ded?"];
+
+	node0x7fffcccc3dd0	[style = filled, fillcolor = green, label = "Sanya Dolgov"];
+
+	node0x7fffcccc3e30	[style = filled, fillcolor = green, label = "Ded"];
+
+	node0x7fffcccc3e90	[style = filled, fillcolor = green, label = "Chernikova"];
+
+	node0x7fffcccc3ef0	[shape = box, style = filled, fillcolor = yellow, label = "Former teacher in MIPT?"];
+
+	node0x7fffcccc3f50	[shape = box, style = filled, fillcolor = yellow, label = "Haircut like a pot?"];
+
+	node0x7fffcccc3fb0	[style = filled, fillcolor = green, label = "Penkin"];
+
+	node0x7fffcccc4010	[style = filled, fillcolor = green, label = "Trushin"];
+
+	node0x7fffcccc4070	[shape = box, style = filled, fillcolor = yellow, label = "President of Russia?"];
+
+	node0x7fffcccc40d0	[style = filled, fillcolor = green, label = "Putin"];
+
+	node0x7fffcccc4130	[shape = box, style = filled, fillcolor = yellow, label = "Character of a sitcom?"];
+
+	node0x7fffcccc4190	[shape = box, style = filled, fillcolor = yellow, label = "From Friends?"];
+
+	node0x7fffcccc41f0	[shape = box, style = filled, fillcolor = yellow, label = "Girl?"];
+
+	node0x7fffcccc4250	[shape = box, style = filled, fillcolor = yellow, label = "Plays the guitar?"];
+
+	node0x7fffcccc42b0	[style = filled, fillcolor = green, label = "Phoebe Buffay"];
+
+	node0x7fffcccc4310	[shape = box, style = filled, fillcolor = yellow, label = "Obsessed with cleaning everything?"];
+
+	node0x7fffcccc4370	[style = filled, fillcolor = green, label = "Monica Geller"];
+
+	node0x7fffcccc43d0	[style = filled, fillcolor = green, label = "Rachel Green"];
+
+	node0x7fffcccc4430	[shape = box, style = filled, fillcolor = yellow, label = "Married to Monica Geller?"];
+
+	node0x7fffcccc4490	[style = filled, fillcolor = green, label = "Chandler Bing"];
+
+	node0x7fffcccc44f0	[shape = box, style = filled, fillcolor = yellow, label = "How you doin'?"];
+
+	node0x7fffcccc4550	[style = filled, fillcolor = green, label = "Joey Tribbiani"];
+
+	node0x7fffcccc45b0	[style = filled, fillcolor = green, label = "Ross Geller"];
+
+	node0x7fffcccc4610	[shape = box, style = filled, fillcolor = yellow, label = "Tall?"];
+
+	node0x7fffcccc4670	[style = filled, fillcolor = green, label = "Sheldon Cooper"];
+
+	node0x7fffcccc46d0	[shape = box, style = filled, fillcolor = yellow, label = "Was in space?"];
+
+	node0x7fffcccc4730	[style = filled, fillcolor = green, label = "Howard Wolowitz"];
+
+	node0x7fffcccc4790	[style = filled, fillcolor = green, label = "Leonard Hofstadter"];
+
+	node0x7fffcccc47f0	[shape = box, style = filled, fillcolor = yellow, label = "The best programist ever?"];
+
+	node0x7fffcccc4850	[shape = box, style = filled, fillcolor = yellow, label = "Lives in 213th room?"];
+
+	node0x7fffcccc48b0	[style = filled, fillcolor = green, label = "Sanya Romanov"];
+
+	node0x7fffcccc4910	[style = filled, fillcolor = green, label = "Indian guy from YouTube"];
+
+	node0x7fffcccc4970	[shape = box, style = filled, fillcolor = yellow, label = "Fell from the Moon?"];
+
+	node0x7fffcccc49d0	[style = filled, fillcolor = green, label = "Luntik"];
+
+	node0x7fffcccc4a30	[style = filled, fillcolor = green, label = "Sadovnichiy"];
+
+node0x7fffd52c57b0 -> node0x7fffcccc2ed0;
+node0x7fffcccc2ed0 -> node0x7fffcccc2f30;
+node0x7fffcccc2f30 -> node0x7fffcccc2f90;
+node0x7fffcccc2f90 -> node0x7fffcccc2ff0;
+node0x7fffcccc2ff0 -> node0x7fffcccc2f90 [color = "dimgray"];
+node0x7fffcccc2f90 -> node0x7fffcccc3050;
+node0x7fffcccc3050 -> node0x7fffcccc30b0;
+node0x7fffcccc30b0 -> node0x7fffcccc3050 [color = "dimgray"];
+node0x7fffcccc3050 -> node0x7fffcccc3110;
+node0x7fffcccc3110 -> node0x7fffcccc3050 [color = "dimgray"];
+node0x7fffcccc3050 -> node0x7fffcccc2f90 [color = "dimgray"];
+node0x7fffcccc2f90 -> node0x7fffcccc2f30 [color = "dimgray"];
+node0x7fffcccc2f30 -> node0x7fffcccc3170;
+node0x7fffcccc3170 -> node0x7fffcccc31d0;
+node0x7fffcccc31d0 -> node0x7fffcccc3170 [color = "dimgray"];
+node0x7fffcccc3170 -> node0x7fffcccc3230;
+node0x7fffcccc3230 -> node0x7fffcccc3290;
+node0x7fffcccc3290 -> node0x7fffcccc3230 [color = "dimgray"];
+node0x7fffcccc3230 -> node0x7fffcccc32f0;
+node0x7fffcccc32f0 -> node0x7fffcccc3350;
+node0x7fffcccc3350 -> node0x7fffcccc32f0 [color = "dimgray"];
+node0x7fffcccc32f0 -> node0x7fffcccc33b0;
+node0x7fffcccc33b0 -> node0x7fffcccc32f0 [color = "dimgray"];
+node0x7fffcccc32f0 -> node0x7fffcccc3230 [color = "dimgray"];
+node0x7fffcccc3230 -> node0x7fffcccc3170 [color = "dimgray"];
+node0x7fffcccc3170 -> node0x7fffcccc2f30 [color = "dimgray"];
+node0x7fffcccc2f30 -> node0x7fffcccc2ed0 [color = "dimgray"];
+node0x7fffcccc2ed0 -> node0x7fffcccc3410;
+node0x7fffcccc3410 -> node0x7fffcccc3470;
+node0x7fffcccc3470 -> node0x7fffcccc34d0;
+node0x7fffcccc34d0 -> node0x7fffcccc3470 [color = "dimgray"];
+node0x7fffcccc3470 -> node0x7fffcccc3530;
+node0x7fffcccc3530 -> node0x7fffcccc3590;
+node0x7fffcccc3590 -> node0x7fffcccc35f0;
+node0x7fffcccc35f0 -> node0x7fffcccc3590 [color = "dimgray"];
+node0x7fffcccc3590 -> node0x7fffcccc3650;
+node0x7fffcccc3650 -> node0x7fffcccc3590 [color = "dimgray"];
+node0x7fffcccc3590 -> node0x7fffcccc3530 [color = "dimgray"];
+node0x7fffcccc3530 -> node0x7fffcccc36b0;
+node0x7fffcccc36b0 -> node0x7fffcccc3710;
+node0x7fffcccc3710 -> node0x7fffcccc36b0 [color = "dimgray"];
+node0x7fffcccc36b0 -> node0x7fffcccc3770;
+node0x7fffcccc3770 -> node0x7fffcccc37d0;
+node0x7fffcccc37d0 -> node0x7fffcccc3770 [color = "dimgray"];
+node0x7fffcccc3770 -> node0x7fffcccc3830;
+node0x7fffcccc3830 -> node0x7fffcccc3890;
+node0x7fffcccc3890 -> node0x7fffcccc3830 [color = "dimgray"];
+node0x7fffcccc3830 -> node0x7fffcccc38f0;
+node0x7fffcccc38f0 -> node0x7fffcccc3950;
+node0x7fffcccc3950 -> node0x7fffcccc38f0 [color = "dimgray"];
+node0x7fffcccc38f0 -> node0x7fffcccc39b0;
+node0x7fffcccc39b0 -> node0x7fffcccc38f0 [color = "dimgray"];
+node0x7fffcccc38f0 -> node0x7fffcccc3830 [color = "dimgray"];
+node0x7fffcccc3830 -> node0x7fffcccc3770 [color = "dimgray"];
+node0x7fffcccc3770 -> node0x7fffcccc36b0 [color = "dimgray"];
+node0x7fffcccc36b0 -> node0x7fffcccc3530 [color = "dimgray"];
+node0x7fffcccc3530 -> node0x7fffcccc3470 [color = "dimgray"];
+node0x7fffcccc3470 -> node0x7fffcccc3410 [color = "dimgray"];
+node0x7fffcccc3410 -> node0x7fffcccc3a10;
+node0x7fffcccc3a10 -> node0x7fffcccc3a70;
+node0x7fffcccc3a70 -> node0x7fffcccc3ad0;
+node0x7fffcccc3ad0 -> node0x7fffcccc3b30;
+node0x7fffcccc3b30 -> node0x7fffcccc3ad0 [color = "dimgray"];
+node0x7fffcccc3ad0 -> node0x7fffcccc3b90;
+node0x7fffcccc3b90 -> node0x7fffcccc3bf0;
+node0x7fffcccc3bf0 -> node0x7fffcccc3b90 [color = "dimgray"];
+node0x7fffcccc3b90 -> node0x7fffcccc3c50;
+node0x7fffcccc3c50 -> node0x7fffcccc3b90 [color = "dimgray"];
+node0x7fffcccc3b90 -> node0x7fffcccc3ad0 [color = "dimgray"];
+node0x7fffcccc3ad0 -> node0x7fffcccc3a70 [color = "dimgray"];
+node0x7fffcccc3a70 -> node0x7fffcccc3cb0;
+node0x7fffcccc3cb0 -> node0x7fffcccc3d10;
+node0x7fffcccc3d10 -> node0x7fffcccc3cb0 [color = "dimgray"];
+node0x7fffcccc3cb0 -> node0x7fffcccc3d70;
+node0x7fffcccc3d70 -> node0x7fffcccc3dd0;
+node0x7fffcccc3dd0 -> node0x7fffcccc3d70 [color = "dimgray"];
+node0x7fffcccc3d70 -> node0x7fffcccc3e30;
+node0x7fffcccc3e30 -> node0x7fffcccc3d70 [color = "dimgray"];
+node0x7fffcccc3d70 -> node0x7fffcccc3cb0 [color = "dimgray"];
+node0x7fffcccc3cb0 -> node0x7fffcccc3a70 [color = "dimgray"];
+node0x7fffcccc3a70 -> node0x7fffcccc3a10 [color = "dimgray"];
+node0x7fffcccc3a10 -> node0x7fffcccc3e90;
+node0x7fffcccc3e90 -> node0x7fffcccc3a10 [color = "dimgray"];
+node0x7fffcccc3a10 -> node0x7fffcccc3410 [color = "dimgray"];
+node0x7fffcccc3410 -> node0x7fffcccc2ed0 [color = "dimgray"];
+node0x7fffcccc2ed0 -> node0x7fffd52c57b0 [color = "dimgray"];
+node0x7fffd52c57b0 -> node0x7fffcccc3ef0;
+node0x7fffcccc3ef0 -> node0x7fffcccc3f50;
+node0x7fffcccc3f50 -> node0x7fffcccc3fb0;
+node0x7fffcccc3fb0 -> node0x7fffcccc3f50 [color = "dimgray"];
+node0x7fffcccc3f50 -> node0x7fffcccc4010;
+node0x7fffcccc4010 -> node0x7fffcccc3f50 [color = "dimgray"];
+node0x7fffcccc3f50 -> node0x7fffcccc3ef0 [color = "dimgray"];
+node0x7fffcccc3ef0 -> node0x7fffcccc4070;
+node0x7fffcccc4070 -> node0x7fffcccc40d0;
+node0x7fffcccc40d0 -> node0x7fffcccc4070 [color = "dimgray"];
+node0x7fffcccc4070 -> node0x7fffcccc4130;
+node0x7fffcccc4130 -> node0x7fffcccc4190;
+node0x7fffcccc4190 -> node0x7fffcccc41f0;
+node0x7fffcccc41f0 -> node0x7fffcccc4250;
+node0x7fffcccc4250 -> node0x7fffcccc42b0;
+node0x7fffcccc42b0 -> node0x7fffcccc4250 [color = "dimgray"];
+node0x7fffcccc4250 -> node0x7fffcccc4310;
+node0x7fffcccc4310 -> node0x7fffcccc4370;
+node0x7fffcccc4370 -> node0x7fffcccc4310 [color = "dimgray"];
+node0x7fffcccc4310 -> node0x7fffcccc43d0;
+node0x7fffcccc43d0 -> node0x7fffcccc4310 [color = "dimgray"];
+node0x7fffcccc4310 -> node0x7fffcccc4250 [color = "dimgray"];
+node0x7fffcccc4250 -> node0x7fffcccc41f0 [color = "dimgray"];
+node0x7fffcccc41f0 -> node0x7fffcccc4430;
+node0x7fffcccc4430 -> node0x7fffcccc4490;
+node0x7fffcccc4490 -> node0x7fffcccc4430 [color = "dimgray"];
+node0x7fffcccc4430 -> node0x7fffcccc44f0;
+node0x7fffcccc44f0 -> node0x7fffcccc4550;
+node0x7fffcccc4550 -> node0x7fffcccc44f0 [color = "dimgray"];
+node0x7fffcccc44f0 -> node0x7fffcccc45b0;
+node0x7fffcccc45b0 -> node0x7fffcccc44f0 [color = "dimgray"];
+node0x7fffcccc44f0 -> node0x7fffcccc4430 [color = "dimgray"];
+node0x7fffcccc4430 -> node0x7fffcccc41f0 [color = "dimgray"];
+node0x7fffcccc41f0 -> node0x7fffcccc4190 [color = "dimgray"];
+node0x7fffcccc4190 -> node0x7fffcccc4610;
+node0x7fffcccc4610 -> node0x7fffcccc4670;
+node0x7fffcccc4670 -> node0x7fffcccc4610 [color = "dimgray"];
+node0x7fffcccc4610 -> node0x7fffcccc46d0;
+node0x7fffcccc46d0 -> node0x7fffcccc4730;
+node0x7fffcccc4730 -> node0x7fffcccc46d0 [color = "dimgray"];
+node0x7fffcccc46d0 -> node0x7fffcccc4790;
+node0x7fffcccc4790 -> node0x7fffcccc46d0 [color = "dimgray"];
+node0x7fffcccc46d0 -> node0x7fffcccc4610 [color = "dimgray"];
+node0x7fffcccc4610 -> node0x7fffcccc4190 [color = "dimgray"];
+node0x7fffcccc4190 -> node0x7fffcccc4130 [color = "dimgray"];
+node0x7fffcccc4130 -> node0x7fffcccc47f0;
+node0x7fffcccc47f0 -> node0x7fffcccc4850;
+node0x7fffcccc4850 -> node0x7fffcccc48b0;
+node0x7fffcccc48b0 -> node0x7fffcccc4850 [color = "dimgray"];
+node0x7fffcccc4850 -> node0x7fffcccc4910;
+node0x7fffcccc4910 -> node0x7fffcccc4850 [color = "dimgray"];
+node0x7fffcccc4850 -> node0x7fffcccc47f0 [color = "dimgray"];
+node0x7fffcccc47f0 -> node0x7fffcccc4970;
+node0x7fffcccc4970 -> node0x7fffcccc49d0;
+node0x7fffcccc49d0 -> node0x7fffcccc4970 [color = "dimgray"];
+node0x7fffcccc4970 -> node0x7fffcccc4a30;
+node0x7fffcccc4a30 -> node0x7fffcccc4970 [color = "dimgray"];
+node0x7fffcccc4970 -> node0x7fffcccc47f0 [color = "dimgray"];
+node0x7fffcccc47f0 -> node0x7fffcccc4130 [color = "dimgray"];
+node0x7fffcccc4130 -> node0x7fffcccc4070 [color = "dimgray"];
+node0x7fffcccc4070 -> node0x7fffcccc3ef0 [color = "dimgray"];
+node0x7fffcccc3ef0 -> node0x7fffd52c57b0 [color = "dimgray"];
+}
