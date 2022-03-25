@@ -215,9 +215,9 @@ int Tree_Verificator (const char *const buffer, const long n_symbs)
         }
 
         if (symb_i < n_symbs && buffer[symb_i] == '{')
-            Brace_Check
+            Brace_Check;
         else if (symb_i < n_symbs && buffer[symb_i] == '}')
-            Brace_Check
+            Brace_Check;
     }
 
     if (l_counter != r_counter)
