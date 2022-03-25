@@ -738,7 +738,7 @@ int Print_Dump (const char *dot_file_name)
     MY_ASSERT (dot_file_name, "const char *dot_file_name", NULL_PTR, ERROR);
     
     char print_dump[BUFF_SIZE] = "";
-    sprintf (print_dump, "dot -Tpng %s -o Akinator.png", dot_file_name);
+    sprintf (print_dump, "dot -Tpng %s -o Graphic_Dump/Akinator.png", dot_file_name);
     system (print_dump);
 
     return NO_ERRORS;
