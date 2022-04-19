@@ -1,5 +1,4 @@
 #include "Akinator.h"
-#include "../My_Lib/My_Lib.h"
 
 int main (int argc, char *argv[])
 {

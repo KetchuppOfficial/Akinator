@@ -1,5 +1,4 @@
 #include "Akinator.h"
-#include "../My_Lib/My_Lib.h"
 
 const char *GRAPH_FILE = "Graph.dot";
 
@@ -764,12 +763,10 @@ int Speak_To_Me (const char *phrase)
 
     printf ("%s", phrase);
 
-    #if ESPEAK == 1
     char print_dump[BUFF_SIZE] = "";
-    sprintf (print_dump, "espeak %s", phrase);
+    sprintf (print_dump, "espeak \"%s\"", phrase);
 
     system (print_dump);
-    #endif
 
     return NO_ERRORS;
 }
