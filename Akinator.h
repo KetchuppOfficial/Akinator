@@ -10,8 +10,6 @@
 #include "Stack/Stack.h"
 #include "../../My_Lib/My_Lib.h"
 
-#define ESPEAK 1
-
 #define MAX_ANSWER 50
 #define BUFF_SIZE 1024
 
