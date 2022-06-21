@@ -41,7 +41,6 @@ make
 
 You'll see something like this:
 
-```
 ```bash
 username@machine:~/Akinator$ make
 Collecting dependencies for "src/Stack.c"...
