@@ -1,5 +1,5 @@
 CC     = gcc
-CFLAGS = #-Wall -Werror -Wextra -Wshadow -Wswitch-default -Wfloat-equal
+CFLAGS = -Wall -Werror -Wextra -Wshadow -Wswitch-default -Wfloat-equal
 
 PROJECT = Akinator
 
