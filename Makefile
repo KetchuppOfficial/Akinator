@@ -1,30 +1,53 @@
-CC = gcc
-CFLAGS = -c -Wall -Werror -Wextra
+CC     = gcc
+CFLAGS = #-Wall -Werror -Wextra -Wshadow -Wswitch-default -Wfloat-equal
 
-TREE_FILE = Tree.txt
-DOT_FILE  = Graphic_Dump/Tree.dot
+PROJECT = Akinator
 
-all: Akinator
+BIN      = ./bin/
+SRCDIR   = ./src/
+BUILDDIR = ./build/
 
-Akinator: main.o Akinator.o Stack.o
-	$(CC) Objects/main.o Objects/Akinator.o Objects/Stack.o ../../My_Lib/My_Lib.a -o Akinator.out
-	rm Objects/main.o
-	rm Objects/Akinator.o
-	rm Objects/Stack.o
+SRC_LIST = main.c Akinator.c Stack.c
+SRC = $(addprefix $(SRCDIR), $(SRC_LIST))
 
-main.o: main.c
-	$(CC) $(CFLAGS) main.c -o Objects/main.o
+SUBS := $(SRC)
+SUBS := $(subst $(SRCDIR), $(BUILDDIR), $(SUBS))
 
-Akinator.o: Akinator.c
-	$(CC) $(CFLAGS) Akinator.c -o Objects/Akinator.o
+OBJ  = $(SUBS:.c=.o)
+DEPS = $(SUBS:.c=.d)
 
-Stack.o: Stack/Stack.c
-	$(CC) $(CFLAGS) Stack/Stack.c -o Objects/Stack.o
+LIBS_LIST = My_Lib
+LIBSDIR = $(addprefix ./, $(LIBS_LIST))
+LIBS = $(addsuffix /*.a, $(LIBSDIR))
 
-run:
-	./Akinator.out $(TREE_FILE) $(DOT_FILE)
+.PHONY: all $(LIBSDIR)
+
+all: $(DEPS) $(OBJ) $(LIBSDIR)
+	@mkdir -p $(BIN)
+	@echo "Linking project..."
+	@$(CC) $(OBJ) $(LIBS) -lm -o $(BIN)$(PROJECT).out
+
+$(LIBSDIR):
+	@$(MAKE) -C $@ --no-print-directory -f Makefile.mak
+
+$(BUILDDIR)%.o: $(SRCDIR)%.c
+	@mkdir -p $(dir $@)
+	@echo "Compiling \"$<\"..."
+	@$(CC) $(CFLAGS) -g $(OPT) -c -I$(LIBSDIR) $< -o $@
+
+include $(DEPS)
+
+$(BUILDDIR)%.d: $(SRCDIR)%.c
+	@echo "Collecting dependencies for \"$<\"..."
+	@mkdir -p $(dir $@)
+	@$(CC) -E $(CFLAGS) -I$(LIBSDIR) $< -MM -MT $(@:.d=.o) > $@
+
+.PHONY: run clean
 
 clean:
-	rm -f Objects/main.o Objects/Akinator.o Objects/Stack.o
-	rm -f log_file.log
-	rm Akinator.out
+	@echo "Cleaning service files..."
+	@rm -rf $(OBJ) $(DEPS)
+
+run: $(BIN)$(PROJECT).out
+	@echo "Running \"$<\"..."
+	@$(BIN)$(PROJECT).out $(IN)

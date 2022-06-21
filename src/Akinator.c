@@ -1,26 +1,117 @@
-#include "Akinator.h"
+#include "../include/Akinator.h"
+#include "My_Lib.h"
 
-const char *GRAPH_FILE = "Graph.dot";
+#define MAX_ANSWER 50
+#define BUFF_SIZE 1024
 
-const int POISON = 2004;
-const void *const DEAD_PTR = NULL;
+const char *DOT_FILE = "./graphic_dump/Tree.dot";
 
-//RELATED TO CONSTRUCTING AND DESTRUCTING A TREE
-//************************************************************************
-int Tree_Constructor (struct Node *root_ptr)
+enum Node_Types
 {
-    MY_ASSERT (root_ptr, "struct Node *root_ptr", NULL_PTR, ERROR);
+    LEAF,
+    QUESTION,
+    ROOT
+};
 
-    root_ptr->type = ROOT;
-    memmove (root_ptr->value, "Unknown who", strlen ("Unknown who"));
-    root_ptr->left_son  = NULL;
-    root_ptr->right_son = NULL;
-    root_ptr->parent    = NULL;
+enum Modes
+{
+    LEFT,
+    RIGHT,
+    NO_MODE
+};
+
+enum Answers
+{
+    NO,
+    YES,
+    REPRINT
+};
+
+enum Search_Status
+{
+    NOT_FOUND,
+    FOUND
+};
+
+struct Node
+{
+    enum Node_Types type;
+    char value[MAX_ANSWER];
+    struct Node *left_son;
+    struct Node *right_son;
+    struct Node *parent;
+};
+
+typedef char* value_t;
+
+// ========================================== STATIC PROTOTYPES ========================================== //
+
+static struct Node *Tree_Constructor (void);
+static int          Tree_Destructor  (struct Node *node_ptr);
+
+static int  Read_Tree_From_File (struct Node *node_ptr, const char *file_name);
+static int  Read_Node           (struct Node *node_ptr, char *buffer, const int n_symbs);
+static void Delete_Extra_Spaces (char *line, const int cur_pos);
+static int  Tree_Verificator    (const char *const buffer, const long n_symbs);
+static int  Print_Tree_In_File  (struct Node *node_ptr, const char *file_name);
+static int  Print_Node          (struct Node *node_ptr, FILE *tree_file, int level);
+static int  Choose_Mode         (struct Node *root_ptr, const char *file_name, const char *dot_file_name);
+static int  Get_Variant         (void);
+static int  Speak_To_Me         (const char *phrase);
+static void Make_Speech         (int parmN, ...);
+static int  Basic_Mode          (struct Node *node_ptr);
+static int  Get_Text_Answer     (char *buffer);
+static int  Add_Leaf            (struct Node *node_ptr, enum Modes mode, const value_t value, enum Node_Types node_type);
+static int  Read_Answer         (void);
+static void Skip_Symbs          (void);
+static int  Definition_Mode     (struct Node *root_ptr);
+static int  Search_For_Name     (struct Node *node_ptr, const char *name, struct Stack *stack_ptr);
+static int  Print_Definition    (struct Stack *stack_ptr, const char *name);
+static int  Comparison_Mode     (struct Node *root_ptr);
+static int  Print_Comparison    (struct Stack *stack_1, struct Stack *stack_2, const char *name_1, const char *name_2);
+static int  Print_Difference    (struct Stack *stack_ptr, const char *name, const int cur_pos);
+static int  Tree_Dump           (struct Node *root_ptr, const char *dot_file_name);
+static int  Node_Dump           (struct Node *node_ptr, FILE *graph_file);
+static int  Arrows_Dump         (struct Node *node_ptr, FILE *graph_file);
+static int  Print_Dump          (const char *dot_file_name);
+
+// ======================================================================================================= //
+
+int Akinator (const char *tree_file_name)
+{
+    MY_ASSERT (tree_file_name, "const char *tree_file_name", NULL_PTR, ERROR);
+    
+    struct Node *root = Tree_Constructor ();
+    
+    if (Read_Tree_From_File (root, tree_file_name) == ERROR)
+        return ERROR;
+
+    Choose_Mode (root, tree_file_name, DOT_FILE);
+
+    Tree_Dump (root, DOT_FILE);
+
+    Tree_Destructor (root);
 
     return NO_ERRORS;
 }
 
-int Tree_Destructor (struct Node *node_ptr)
+// =========================== CONSTRUCTOR AND DESTRUCTOR =========================== //
+
+static struct Node *Tree_Constructor (void)
+{
+    struct Node *root = (struct Node *)calloc (1, sizeof (struct Node));
+    MY_ASSERT (root, "struct Node *root", NE_MEM, NULL);
+
+    root->type = ROOT;
+    memcpy (root->value, "Unknown who", sizeof ("Unknown who"));
+    root->left_son  = NULL;
+    root->right_son = NULL;
+    root->parent    = NULL;
+
+    return root;
+}
+
+static int Tree_Destructor (struct Node *node_ptr)
 {
     MY_ASSERT (node_ptr, "struct Node *node_ptr", NULL_PTR, ERROR);
 
@@ -30,29 +121,28 @@ int Tree_Destructor (struct Node *node_ptr)
     if (node_ptr->right_son)
         Tree_Destructor (node_ptr->right_son);
 
-    node_ptr->type = (enum Node_Types)POISON;
+    node_ptr->type = 0;
 
-    node_ptr->left_son  = (struct Node *)DEAD_PTR;
-    node_ptr->right_son = (struct Node *)DEAD_PTR;
+    node_ptr->left_son  = NULL;
+    node_ptr->right_son = NULL;
 
     if (node_ptr->parent)
         free (node_ptr);
 
     return NO_ERRORS;
 }
-//************************************************************************
 
-//RELATED TO READING TREE FROM FILE
-//************************************************************************
-int Read_Tree_From_File (struct Node *node_ptr, const char *file_name)
+// ================================================================================== //
+
+// ============================= READING TREE FROM FILE ============================= //
+
+static int Read_Tree_From_File (struct Node *node_ptr, const char *file_name)
 {
     MY_ASSERT (node_ptr,  "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (file_name, "const char *file_name", NULL_PTR, ERROR);
 
-    FILE *tree_file = Open_File (file_name, "rb");
-
-    long n_symbs = Define_File_Size (tree_file);
-    char *buffer = Make_Buffer (tree_file, n_symbs);
+    long n_symbs = 0L;
+    char *buffer = Make_File_Buffer (file_name, &n_symbs);
 
     if (Tree_Verificator (buffer, n_symbs) == ERROR)
         return ERROR;
@@ -61,12 +151,10 @@ int Read_Tree_From_File (struct Node *node_ptr, const char *file_name)
 
     free (buffer);
 
-    Close_File (tree_file, file_name);
-
     return NO_ERRORS;
 }
 
-int Read_Node (struct Node *node_ptr, char *buffer, const int n_symbs)
+static int Read_Node (struct Node *node_ptr, char *buffer, const int n_symbs)
 {
     MY_ASSERT (node_ptr,    "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (buffer,      "char *buffer",          NULL_PTR, ERROR);
@@ -99,8 +187,8 @@ int Read_Node (struct Node *node_ptr, char *buffer, const int n_symbs)
 
             if (!root_found)
             {
-                for (int i = 0; i < MAX_ANSWER; i++)
-                    node_ptr->value[i] = '\0';
+                for (int j = 0; j < MAX_ANSWER; j++)
+                    node_ptr->value[j] = '\0';
 
                 memmove (node_ptr->value, line, strlen (line));
                 root_found = true;
@@ -145,7 +233,7 @@ int Read_Node (struct Node *node_ptr, char *buffer, const int n_symbs)
     return NO_ERRORS;
 }
 
-void Delete_Extra_Spaces (char *line, const int cur_pos)
+static void Delete_Extra_Spaces (char *line, const int cur_pos)
 {
     int shift = 0;
     while (isspace (line[cur_pos - shift]) || line[cur_pos - shift] == '\0')
@@ -173,7 +261,7 @@ do                                          \
 }                                           \
 while (0)
 
-int Tree_Verificator (const char *const buffer, const long n_symbs)
+static int Tree_Verificator (const char *const buffer, const long n_symbs)
 {
     MY_ASSERT (buffer,      "const char *const buffer", NULL_PTR, ERROR);
     MY_ASSERT (n_symbs > 0, "const long n_symbs",       POS_VAL,  ERROR);
@@ -225,11 +313,11 @@ int Tree_Verificator (const char *const buffer, const long n_symbs)
     return NO_ERRORS;
 }
 
-//************************************************************************
+// ================================================================================== //
 
-//RELATED TO PRINTING TREE IN FILE
-//************************************************************************
-int Print_Tree_In_File (struct Node *node_ptr, const char *file_name)
+// ================================ PRINTING IN FILE ================================ //
+
+static int Print_Tree_In_File (struct Node *node_ptr, const char *file_name)
 {
     MY_ASSERT (node_ptr,  "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (file_name, "const char *file_name", NULL_PTR, ERROR);
@@ -251,7 +339,7 @@ do                                      \
 }                                       \
 while (0)
 
-int Print_Node (struct Node *node_ptr, FILE *tree_file, int level)
+static int Print_Node (struct Node *node_ptr, FILE *tree_file, int level)
 {
     MY_ASSERT (node_ptr,   "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (tree_file,  "FILE *tree_file",       NULL_PTR, ERROR);
@@ -283,13 +371,14 @@ int Print_Node (struct Node *node_ptr, FILE *tree_file, int level)
 
     return NO_ERRORS;
 }
-//************************************************************************
 
-int Choose_Mode (struct Node *root_ptr, const char *file_name, const char *dot_file_name)
+// ================================================================================== //
+
+static int Choose_Mode (struct Node *root_ptr, const char *file_name, const char *dot_file_name)
 {
-    MY_ASSERT (root_ptr,  "struct Node *root_ptr",     NULL_PTR, ERROR);
-    MY_ASSERT (file_name, "const char *file_name",     NULL_PTR, ERROR);
-    MY_ASSERT (file_name, "const char *dot_file_name", NULL_PTR, ERROR);
+    MY_ASSERT (root_ptr,      "struct Node *root_ptr",     NULL_PTR, ERROR);
+    MY_ASSERT (file_name,     "const char *file_name",     NULL_PTR, ERROR);
+    MY_ASSERT (dot_file_name, "const char *dot_file_name", NULL_PTR, ERROR);
 
     Speak_To_Me ("Choose one mode (write its number):\n");
     Speak_To_Me ("1) Akinator mode;\n");
@@ -320,7 +409,7 @@ int Choose_Mode (struct Node *root_ptr, const char *file_name, const char *dot_f
     return NO_ERRORS;
 }
 
-int Get_Variant (void)
+static int Get_Variant (void)
 {
     int num = 0;
 
@@ -338,9 +427,41 @@ int Get_Variant (void)
     return num;
 }
 
-//RELATED TO BASIC MODE
-//************************************************************************
-int Basic_Mode (struct Node *node_ptr)
+static int Speak_To_Me (const char *phrase)
+{
+    MY_ASSERT (phrase, "const char *phrase", NULL_PTR, ERROR);
+
+    printf ("%s", phrase);
+
+    char print_dump[BUFF_SIZE] = "";
+    sprintf (print_dump, "espeak \"%s\"", phrase);
+
+    system (print_dump);
+
+    return NO_ERRORS;
+}
+
+static void Make_Speech (int parmN, ...)
+{
+    char *buffer = (char *)calloc (parmN * MAX_ANSWER, sizeof (char));
+
+    va_list ap;
+    va_start (ap, parmN);
+
+    for (int i = 0; i < parmN; i++)
+        strcat (buffer, va_arg (ap, char *));
+    strcat (buffer, "\n");
+
+    va_end (ap);
+
+    Speak_To_Me (buffer);
+
+    free (buffer);
+}
+
+// =================================== BASIC MODE =================================== //
+
+static int Basic_Mode (struct Node *node_ptr)
 {
     MY_ASSERT (node_ptr, "struct Node *node_ptr", NULL_PTR, ERROR);
 
@@ -395,7 +516,7 @@ int Basic_Mode (struct Node *node_ptr)
     return NO_ERRORS;
 }
 
-int Get_Text_Answer (char *buffer)
+static int Get_Text_Answer (char *buffer)
 {
     MY_ASSERT (buffer, "char *buffer", NULL_PTR, ERROR);
 
@@ -424,7 +545,8 @@ do                                                                  \
     son_ptr->parent = node_ptr;                                     \
 }                                                                   \
 while (0)
-int Add_Leaf (struct Node *node_ptr, enum Modes mode, const value_t value, enum Node_Types node_type)
+
+static int Add_Leaf (struct Node *node_ptr, enum Modes mode, const value_t value, enum Node_Types node_type)
 {
     MY_ASSERT (node_ptr, "struct Node *node_ptr", NULL_PTR, ERROR);
 
@@ -445,7 +567,7 @@ int Add_Leaf (struct Node *node_ptr, enum Modes mode, const value_t value, enum 
     return NO_ERRORS;
 }
 
-int Read_Answer (void)
+static int Read_Answer (void)
 {
     char ans = 0;
     enum Answers yes_no = NO;
@@ -477,33 +599,32 @@ int Read_Answer (void)
     }
 }
 
-void Skip_Symbs (void)
+static void Skip_Symbs (void)
 {
     Speak_To_Me ("There is no such variant. Try again\n");
     while (getchar () != '\n') {;}
 }
-//************************************************************************
 
-//RELATED TO DEFINITION MODE
-//************************************************************************
-int Definition_Mode (struct Node *root_ptr)
+// ================================================================================== //
+
+// ================================ DEFINITION MODE ================================= //
+
+static int Definition_Mode (struct Node *root_ptr)
 {
     MY_ASSERT (root_ptr, "struct Node *root_ptr", NULL_PTR, ERROR);
 
-    struct Stack stack = {};
-
-    Stack_Ctor (&stack);
+    struct Stack *stack = Stack_Ctor ();
 
     Speak_To_Me ("Write the name of a person you want to get definition of\n");
     char name[MAX_ANSWER] = "";
     Get_Text_Answer (name);
 
-    if (Search_For_Name (root_ptr, name, &stack) == FOUND)
-        Print_Definition (&stack, name);
+    if (Search_For_Name (root_ptr, name, stack) == FOUND)
+        Print_Definition (stack, name);
     else
         Speak_To_Me ("I'm sorry. I don't have this person in my database :( \n");
 
-    Stack_Dtor (&stack);
+    Stack_Dtor (stack);
 
     return NO_ERRORS;
 }
@@ -521,7 +642,7 @@ do                                                                              
 }                                                                               \
 while (0)
 
-int Search_For_Name (struct Node *node_ptr, const char *name, struct Stack *stack_ptr)
+static int Search_For_Name (struct Node *node_ptr, const char *name, struct Stack *stack_ptr)
 {
     MY_ASSERT (node_ptr,  "struct Node *node_ptr",   NULL_PTR, ERROR);
     MY_ASSERT (name,      "const char *name",        NULL_PTR, ERROR);
@@ -548,17 +669,17 @@ do                                                  \
 {                                                   \
     switch (condition)                              \
     {                                               \
-        case true:                                  \
-            if_yes;                                 \
-            break;                                  \
-        case false:                                 \
+        case 0:                                     \
             if_no;                                  \
+            break;                                  \
+        default:                                    \
+            if_yes;                                 \
             break;                                  \
     }                                               \
 }                                                   \
 while (0)
 
-int Print_Definition (struct Stack *stack_ptr, const char *name)
+static int Print_Definition (struct Stack *stack_ptr, const char *name)
 {
     MY_ASSERT (stack_ptr, "struct Stack *stack_ptr", NULL_PTR, ERROR);
     MY_ASSERT (name,      "const char *name",        NULL_PTR, ERROR);
@@ -579,19 +700,17 @@ int Print_Definition (struct Stack *stack_ptr, const char *name)
 
     return NO_ERRORS;
 }
-//************************************************************************
 
-//RELATED TO COMPARISON MODE
-//************************************************************************
-int Comparison_Mode (struct Node *root_ptr)
+// ================================================================================== //
+
+// ================================ COMPATISON MODE ================================= //
+
+static int Comparison_Mode (struct Node *root_ptr)
 {
     MY_ASSERT (root_ptr, "struct Node *root_ptr", NULL_PTR, ERROR);
 
-    struct Stack stack_1 = {};
-    struct Stack stack_2 = {};
-
-    Stack_Ctor (&stack_1);
-    Stack_Ctor (&stack_2);
+    struct Stack *stack_1 = Stack_Ctor ();
+    struct Stack *stack_2 = Stack_Ctor ();
 
     Speak_To_Me ("Write names of two people you want to compare\n");
 
@@ -603,21 +722,21 @@ int Comparison_Mode (struct Node *root_ptr)
     char name_2[MAX_ANSWER] = "";
     Get_Text_Answer (name_2);
 
-    int status_1 = Search_For_Name (root_ptr, name_1, &stack_1);
-    int status_2 = Search_For_Name (root_ptr, name_2, &stack_2);
+    int status_1 = Search_For_Name (root_ptr, name_1, stack_1);
+    int status_2 = Search_For_Name (root_ptr, name_2, stack_2);
 
     if (status_1 == FOUND && status_2 == FOUND)
-        Print_Comparison (&stack_1, &stack_2, name_1, name_2);
+        Print_Comparison (stack_1, stack_2, name_1, name_2);
     else
         Speak_To_Me ("I'm sorry. One or two of persons you've written isn't presented in my database :( \n");
 
-    Stack_Dtor (&stack_1);
-    Stack_Dtor (&stack_2);
+    Stack_Dtor (stack_1);
+    Stack_Dtor (stack_2);
 
     return NO_ERRORS;
 }
 
-int Print_Comparison (struct Stack *stack_1, struct Stack *stack_2, const char *name_1, const char *name_2)
+static int Print_Comparison (struct Stack *stack_1, struct Stack *stack_2, const char *name_1, const char *name_2)
 {
     MY_ASSERT (stack_1, "struct Stack *stack_1", NULL_PTR, ERROR);
     MY_ASSERT (name_1,  "const char *name_1",    NULL_PTR, ERROR);
@@ -653,7 +772,7 @@ int Print_Comparison (struct Stack *stack_1, struct Stack *stack_2, const char *
     return NO_ERRORS;
 }
 
-int Print_Difference (struct Stack *stack_ptr, const char *name, const int cur_pos)
+static int Print_Difference (struct Stack *stack_ptr, const char *name, const int cur_pos)
 {
     MY_ASSERT (stack_ptr, "struct Stack *stack_ptr", NULL_PTR, ERROR);
     MY_ASSERT (name,      "const char *name",        NULL_PTR, ERROR);
@@ -670,16 +789,23 @@ int Print_Difference (struct Stack *stack_ptr, const char *name, const int cur_p
 
     return ERROR;
 }
-//************************************************************************
 
-//RELATED TO GRAPHIC DUMP
-//************************************************************************
-int Tree_Dump (struct Node *root_ptr, const char *dot_file_name)
+// ================================================================================== //
+
+// ================================== GRAPGIC DUMP ================================== //
+
+static int Tree_Dump (struct Node *root_ptr, const char *dot_file_name)
 {
+    MY_ASSERT (root_ptr,      "struct Node *root_ptr",     NULL_PTR, ERROR);
+    MY_ASSERT (dot_file_name, "const char *dot_file_name", NULL_PTR, ERROR); 
+
     MY_ASSERT (root_ptr,      "struct Node *root_ptr",     NULL_PTR, ERROR);
     MY_ASSERT (dot_file_name, "const char *dot_file_name", NULL_PTR, ERROR);
 
+    system ("mkdir -p graphic_dump");
+    
     FILE *graph_file = Open_File (dot_file_name, "wb");
+    MY_ASSERT (graph_file, "FILE *graph_file", NULL_PTR, ERROR);
 
     fprintf (graph_file, "digraph List\n"
                          "{\n"
@@ -699,7 +825,7 @@ int Tree_Dump (struct Node *root_ptr, const char *dot_file_name)
     return NO_ERRORS;
 }
 
-int Node_Dump (struct Node *node_ptr, FILE *graph_file)
+static int Node_Dump (struct Node *node_ptr, FILE *graph_file)
 {
     MY_ASSERT (node_ptr,   "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (graph_file, "FILE *graph_file",      NULL_PTR, ERROR);
@@ -729,7 +855,7 @@ do                                                                              
 }                                                                                       \
 while (0)
 
-int Arrows_Dump (struct Node *node_ptr, FILE *graph_file)
+static int Arrows_Dump (struct Node *node_ptr, FILE *graph_file)
 {
     MY_ASSERT (node_ptr,   "struct Node *node_ptr", NULL_PTR, ERROR);
     MY_ASSERT (graph_file, "FILE *graph_file",      NULL_PTR, ERROR);
@@ -745,46 +871,15 @@ int Arrows_Dump (struct Node *node_ptr, FILE *graph_file)
     return NO_ERRORS;
 }
 
-int Print_Dump (const char *dot_file_name)
+static int Print_Dump (const char *dot_file_name)
 {
     MY_ASSERT (dot_file_name, "const char *dot_file_name", NULL_PTR, ERROR);
     
     char print_dump[BUFF_SIZE] = "";
-    sprintf (print_dump, "dot -Tpng %s -o Graphic_Dump/Akinator.png", dot_file_name);
-    system (print_dump);
-
-    return NO_ERRORS;
-}
-//************************************************************************
-
-int Speak_To_Me (const char *phrase)
-{
-    MY_ASSERT (phrase, "const char *phrase", NULL_PTR, ERROR);
-
-    printf ("%s", phrase);
-
-    char print_dump[BUFF_SIZE] = "";
-    sprintf (print_dump, "espeak \"%s\"", phrase);
-
+    sprintf (print_dump, "dot -Tpng %s -o graphic_dump/Akinator.png", dot_file_name);
     system (print_dump);
 
     return NO_ERRORS;
 }
 
-void Make_Speech (int parmN, ...)
-{
-    char *buffer = (char *)calloc (parmN * MAX_ANSWER, sizeof (char));
-
-    va_list ap;
-    va_start (ap, parmN);
-
-    for (int i = 0; i < parmN; i++)
-        strcat (buffer, va_arg (ap, char *));
-    strcat (buffer, "\n");
-
-    va_end (ap);
-
-    Speak_To_Me (buffer);
-
-    free (buffer);
-}
+// ================================================================================== //

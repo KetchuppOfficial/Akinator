@@ -1,5 +1,12 @@
-Objects/*.o
+# Service files
+#~~~~~~~~~~~~~~~~~~~
+*.o
+*.d
+*.out
+*.log
+#~~~~~~~~~~~~~~~~~~~
 
-Akinator.out
-
-log_file.log
+# Not for release
+#~~~~~~~~~~~~~~~~~~~
+graphic_dump/
+#~~~~~~~~~~~~~~~~~~~
