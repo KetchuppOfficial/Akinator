@@ -122,7 +122,11 @@ A teacher in MIPT
 					}
 					{
 					Tall
-						{ Sheldon Cooper }
+						{
+						Likes everything to be legendary
+							{ Barney Stinson }
+							{ Sheldon Cooper }
+						}
 						{
 						Was in space
 							{ Howard Wolowitz }
